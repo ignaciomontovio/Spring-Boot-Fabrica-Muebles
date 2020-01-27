@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymelef.org">
+<head>
+<meta charset="UTF-8">
+<title>Crear Mueble</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+</head>
+<body>
+	<div class="container">
+	
+	<!-- 	------------------------------------------------Menu --------------------------------------------------------------- -->
+		<div class="row">
+			<a href="/CrearCliente"
+				class="col-sm-2 col-md-2 col-lg-2 col-xl-2 btn btn-primary">Crear
+				cliente</a> <a href="/CrearVenta"
+				class="col-sm-2 col-md-2 col-lg-2 col-xl-2 btn btn-primary">Crear
+				Venta</a> <a href="/CrearMueble"
+				class="col-sm-2 col-md-2 col-lg-2 col-xl-2 btn btn-primary">Crear
+				Mueble</a> <a href="/FinalizarVenta"
+				class="col-sm-2 col-md-2 col-lg-2 col-xl-2 btn btn-primary">Finalizar
+				Venta</a> <a href="/AsignarCodigoDeBarras"
+				class="col-sm-2 col-md-2 col-lg-2 col-xl-2 btn btn-primary">Asignar
+				Codigos De Barras</a> <a href="/PedidosAFabricar"
+				class="col-sm-2 col-md-2 col-lg-2 col-xl-2 btn btn-primary">Pedidos
+				a Fabricar</a>
+		</div>
+		
+	<!-- 	-------------------------------------------------------------------------------------------------------------------- -->
+		<h1 class="p-3 mb-2 bg-success text-white">Elija el Mueble a
+			Crear</h1>
+		<div class="row">
+			<button class="col-sm-2 col-md-2 col-lg-2 col-xl-3 btn btn-primary"
+				id="CrearAlfombra" onclick="ShowCrearAlfombra()">Crear
+				Alfombra</button>
+			<button class="col-sm-2 col-md-2 col-lg-2 col-xl-3 btn btn-primary"
+				id="CrearBaul" onclick="ShowCrearBaul()">Crear Baul</button>
+			<button class="col-sm-2 col-md-2 col-lg-2 col-xl-3 btn btn-primary"
+				id="CrearCarpa" onclick="ShowCrearCarpa()">Crear Carpa</button>
+			<button class="col-sm-2 col-md-2 col-lg-2 col-xl-3 btn btn-primary"
+				id="CrearEscalera" onclick="ShowCrearEscalera()">Crear
+				Escalera</button>
+		</div>
+		<br>
+		<div class="row">
+
+			<button class="col-sm-4 col-md-4 col-lg-4 col-xl-4 btn btn-primary"
+				id="CrearEstante" onclick="ShowCrearEstante()">Crear
+				Estante</button>
+
+			<button class="col-sm-4 col-md-4 col-lg-4 col-xl-4 btn btn-primary"
+				id="CrearMesa" onclick="ShowCrearMesa()">Crear Mesa</button>
+
+			<button class="col-sm-4 col-md-4 col-lg-4 col-xl-4 btn btn-primary"
+				id="CrearSilla" onclick="ShowCrearSilla()">Crear Silla</button>
+		</div>
+		<br>
+		<!-- -------------------------------------------------------CREAR ALFOMBRA------------------------------------- -->
+		<form class="CrearAlfombra" action="#" th:action="@{/saveAlfombra}"
+			th:object="${alfombra}" method="post">
+			<div class="card-header bg-dark">
+				<h1>CREAR MUEBLE: ALFOMBRA</h1>
+			</div>
+			<div class="card-body bg-gray">
+				<p>
+					Nombre Alfombra: <input type="text"
+						th:field="${alfombra.mueble.nombre_Mueble}"> Color: 
+						<select
+						th:field="${alfombra.color.nombre_Color}">
+						<option th:each="col:${colores}" th:value="${col.nombre_Color}"
+							th:text="${col.nombre_Color}" />
+					</select>
+				</p>
+				<div class="card-footer bg-dark">
+					<input type="submit" class="btn btn-primary btn-sm" value="Guardar">
+					<input type="reset" class="btn btn-primary btn-sm" value="Reset" />
+				</div>
+			</div>
+		</form>
+
+		<table class="table CrearAlfombra">
+			<thead>
+				<tr>
+					<th scope="col">ID Alfombra</th>
+					<th scope="col">Nombre Alfombra</th>
+					<th scope="col">Color Alfombra</th>
+					<th scope="col">Eliminar</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each = "al:${alfombras}">
+					<th scope="row" th:text = "${al.mueble.id_Mueble}"></th>
+					<th scope="row" th:text = "${al.mueble.nombre_Mueble}"></th>
+					<th scope="row" th:text = "${al.color.nombre_Color}"></th>
+					<th><a th:href="@{/deleteAlfombra/} + ${al.mueble.id_Mueble}"
+					class="btn btn-primary btn-sm">Eliminar</a></th>
+				</tr>
+			</tbody>
+		</table>
+
+		<script type="text/javascript">
+			$(".CrearAlfombra").hide();
+			function ShowCrearAlfombra() {
+				$(".CrearAlfombra").show();
+				$(".CrearBaul").hide();
+				$(".CrearCarpa").hide();
+				$(".CrearEscalera").hide();
+				$(".CrearEstante").hide();
+				$(".CrearMesa").hide();
+				$(".CrearSilla").hide();
+			}
+		</script>
+		<!-- -------------------------------------------------------CREAR BAUL------------------------------------- -->
+		<form class="CrearBaul" action="#" th:action="@{/saveBaul}"
+			th:object="${baul}" method="post">
+			<div class="card-header bg-dark">
+				<h1>CREAR MUEBLE: BAUL</h1>
+			</div>
+			<div class="card-body bg-gray">
+				<p>
+					Nombre Baul: <input type="text"
+						th:field="${baul.mueble.nombre_Mueble}"> Color: 
+						<select
+						th:field="${baul.color.nombre_Color}">
+						<option th:each="col:${colores}" th:value="${col.nombre_Color}"
+							th:text="${col.nombre_Color}" />
+					</select>
+				</p>
+				<div class="card-footer bg-dark">
+					<input type="submit" class="btn btn-primary btn-sm" value="Guardar">
+					<input type="reset" class="btn btn-primary btn-sm" value="Reset" />
+				</div>
+			</div>
+		</form>
+
+		<table class="table CrearBaul">
+			<thead>
+				<tr>
+					<th scope="col">ID baul</th>
+					<th scope="col">Nombre baul</th>
+					<th scope="col">Color baul</th>
+					<th scope="col">Eliminar</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each = "ba:${baules}">
+					<th scope="row" th:text = "${ba.mueble.id_Mueble}"></th>
+					<th scope="row" th:text = "${ba.mueble.nombre_Mueble}"></th>
+					<th scope="row" th:text = "${ba.color.nombre_Color}"></th>
+					<th><a th:href="@{/deleteBaul/} + ${ba.mueble.id_Mueble}"
+					class="btn btn-primary btn-sm">Eliminar</a></th>
+				</tr>
+			</tbody>
+		</table>
+
+<!-- 		<table class="table CrearAlfombra"> -->
+<!-- 			<thead> -->
+<!-- 				<tr> -->
+<!-- 					<th scope="col">ID Alfombra</th> -->
+<!-- 					<th scope="col">Nombre Alfombra</th> -->
+<!-- 					<th scope="col">Color Alfombra</th> -->
+					
+<!-- 				</tr> -->
+<!-- 			</thead> -->
+<!-- 			<tbody> -->
+<!-- 				<tr th:each = "al:${alfombras}"> -->
+<!-- 					<th scope="row" th:text = "${al.mueble.id_Mueble}"></th> -->
+<!-- 					<th scope="row" th:text = "${al.mueble.nombre_Mueble}"></th> -->
+<!-- 					<th scope="row" th:text = "${al.color.nombre_Color}"></th> -->
+<!-- 				</tr> -->
+<!-- 			</tbody> -->
+<!-- 		</table> -->
+		
+<!-- 		<form class="CrearBaul"> -->
+<!-- 			<div class="card-header bg-dark"> -->
+<!-- 				<h1>CREAR MUEBLE: BAUL</h1> -->
+<!-- 			</div> -->
+<!-- 			<div class="card-body bg-gray"> -->
+<!-- 				<p> -->
+<!-- 					Nombre Baul: <input type="text"> Color: <select> -->
+<!-- 						<option th:each="col:${Colores}" th:value="${col.nombre_Color}" -->
+<!-- 							th:text="${col.nombre_Color}" /> -->
+<!-- 					</select> -->
+<!-- 				</p> -->
+<!-- 				<div class="card-footer bg-dark"> -->
+<!-- 					<input type="submit" class="btn btn-primary btn-sm" value="Guardar"> -->
+<!-- 					<input type="reset" class="btn btn-primary btn-sm" value="Reset" /> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+<!-- 		</form> -->
+
+		<script type="text/javascript">
+			$(".CrearBaul").hide();
+			function ShowCrearBaul() {
+				$(".CrearAlfombra").hide();
+				$(".CrearBaul").show();
+				$(".CrearCarpa").hide();
+				$(".CrearEscalera").hide();
+				$(".CrearEstante").hide();
+				$(".CrearMesa").hide();
+				$(".CrearSilla").hide();
+			}
+		</script>
+		<!-- -------------------------------------------------------CREAR CARPA------------------------------------- -->
+		<form class="CrearCarpa">
+			<div class="card-header bg-dark">
+				<h1>CREAR MUEBLE: CARPA</h1>
+			</div>
+			<div class="card-body bg-gray">
+				<p>
+					Nombre Carpa: <input type="text"> Color: <select>
+						<option th:each="col:${Colores}" th:value="${col.nombre_Color}"
+							th:text="${col.nombre_Color}" />
+					</select>
+				</p>
+				<div class="card-footer bg-dark">
+					<input type="submit" class="btn btn-primary btn-sm" value="Guardar">
+					<input type="reset" class="btn btn-primary btn-sm" value="Reset" />
+				</div>
+			</div>
+		</form>
+
+		<script type="text/javascript">
+			$(".CrearCarpa").hide();
+			function ShowCrearCarpa() {
+				$(".CrearAlfombra").hide();
+				$(".CrearBaul").hide();
+				$(".CrearCarpa").show();
+				$(".CrearEscalera").hide();
+				$(".CrearEstante").hide();
+				$(".CrearMesa").hide();
+				$(".CrearSilla").hide();
+			}
+		</script>
+
+		<!-- -------------------------------------------------------CREAR ESCALERA------------------------------------- -->
+		<form class="CrearEscalera">
+			<div class="card-header bg-dark">
+				<h1>CREAR MUEBLE: ESCALERA</h1>
+			</div>
+			<div class="card-body bg-gray">
+				<p>
+					Nombre Escalera: <input type="text"> Color: <select>
+						<option th:each="col:${Colores}" th:value="${col.nombre_Color}"
+							th:text="${col.nombre_Color}" />
+					</select>
+				</p>
+				<div class="card-footer bg-dark">
+					<input type="submit" class="btn btn-primary btn-sm" value="Guardar">
+					<input type="reset" class="btn btn-primary btn-sm" value="Reset" />
+				</div>
+			</div>
+		</form>
+
+
+		<script type="text/javascript">
+			$(".CrearEscalera").hide();
+			function ShowCrearEscalera() {
+				$(".CrearAlfombra").hide();
+				$(".CrearBaul").hide();
+				$(".CrearCarpa").hide();
+				$(".CrearEscalera").show();
+				$(".CrearEstante").hide();
+				$(".CrearMesa").hide();
+				$(".CrearSilla").hide();
+			}
+		</script>
+		<!-- -------------------------------------------------------CREAR ESTANTE------------------------------------- -->
+		<form class="CrearEstante">
+			<div class="card-header bg-dark">
+				<h1>CREAR MUEBLE: ESTANTE</h1>
+			</div>
+			<div class="card-body bg-gray">
+				<p>
+					Nombre Estante: <input type="text"> Color: <select>
+						<option th:each="col:${Colores}" th:value="${col.nombre_Color}"
+							th:text="${col.nombre_Color}" />
+					</select>
+				</p>
+				<div class="card-footer bg-dark">
+					<input type="submit" class="btn btn-primary btn-sm" value="Guardar">
+					<input type="reset" class="btn btn-primary btn-sm" value="Reset" />
+				</div>
+			</div>
+		</form>
+
+		<script type="text/javascript">
+			$(".CrearEstante").hide();
+			function ShowCrearEstante() {
+				$(".CrearAlfombra").hide();
+				$(".CrearBaul").hide();
+				$(".CrearCarpa").hide();
+				$(".CrearEscalera").hide();
+				$(".CrearEstante").show();
+				$(".CrearMesa").hide();
+				$(".CrearSilla").hide();
+			}
+		</script>
+
+		<!-- -------------------------------------------------------CREAR MESA------------------------------------- -->
+		<form class="CrearMesa">
+			<div class="card-header bg-dark">
+				<h1>CREAR MUEBLE: MESA</h1>
+			</div>
+			<div class="card-body bg-gray">
+				<p>
+					Nombre Mesa: <input type="text"> Color: <select>
+						<option th:each="col:${Colores}" th:value="${col.nombre_Color}"
+							th:text="${col.nombre_Color}" />
+					</select>
+				</p>
+				<div class="card-footer bg-dark">
+					<input type="submit" class="btn btn-primary btn-sm" value="Guardar">
+					<input type="reset" class="btn btn-primary btn-sm" value="Reset" />
+				</div>
+			</div>
+		</form>
+		<script type="text/javascript">
+			$(".CrearMesa").hide();
+			function ShowCrearMesa() {
+				$(".CrearAlfombra").hide();
+				$(".CrearBaul").hide();
+				$(".CrearCarpa").hide();
+				$(".CrearEscalera").hide();
+				$(".CrearEstante").hide();
+				$(".CrearMesa").show();
+				$(".CrearSilla").hide();
+			}
+		</script>
+
+		<!-- -------------------------------------------------------CREAR SILLA------------------------------------- -->
+		<form class="CrearSilla">
+			<div class="card-header bg-dark">
+				<h1>CREAR MUEBLE: SILLA</h1>
+			</div>
+			<div class="card-body bg-gray">
+				<p>
+					Nombre Silla: <input type="text"> Color: <select>
+						<option th:each="col:${Colores}" th:value="${col.nombre_Color}"
+							th:text="${col.nombre_Color}" />
+					</select>
+				</p>
+				<div class="card-footer bg-dark">
+					<input type="submit" class="btn btn-primary btn-sm" value="Guardar">
+					<input type="reset" class="btn btn-primary btn-sm" value="Reset" />
+				</div>
+			</div>
+		</form>
+		<script type="text/javascript">
+			$(".CrearSilla").hide();
+			function ShowCrearSilla() {
+				$(".CrearAlfombra").hide();
+				$(".CrearBaul").hide();
+				$(".CrearCarpa").hide();
+				$(".CrearEscalera").hide();
+				$(".CrearEstante").hide();
+				$(".CrearMesa").hide();
+				$(".CrearSilla").show();
+			}
+		</script>
+
+		<!-- ------------------------------------------------------------------------------------------------------------ -->
+
+		<!-- 		<form action=""> -->
+		<!-- 			<div class="card-header bg-dark"> -->
+		<!-- 				<h1>CREAR UN CLIENTE</h1> -->
+		<!-- 			</div> -->
+		<!-- 			<div class="card-body bg-gray"> -->
+		<!-- 				<div class="card-footer bg-dark"> -->
+		<!-- 					<input type="submit" class="btn btn-primary btn-sm" value="Guardar"> -->
+		<!-- 					<input type="reset" class="btn btn-primary btn-sm" value="Reset" /> -->
+		<!-- 				</div> -->
+		<!-- 			</div> -->
+		<!-- 		</form> -->
+
+
+		<!-- ------------------------------------------------------------------------------------------------------------ -->
+	</div>
+
+	<!-- 	---------------------------SCRIPT ---------------------- -->
+	<!-- 	<input type="text" id="entrada"> -->
+	<!-- 	<button id="myButton" onclick="ShowHideElement()">Show Entrada</button> -->
+	<!-- 	<script type="text/javascript"> -->
+	<!-- //  		$("#entrada").hide(); -->
+	<!-- //  		function ShowHideElement() { -->
+
+	<!-- //  			if ($("#myButton").text() === "Show Entrada") { -->
+	<!-- //  				$("#entrada").show(); -->
+	<!-- //  				text = "Hide Entrada"; -->
+	<!-- //  			} else { -->
+	<!-- //  				$("#entrada").hide(); -->
+	<!-- //  				text = "Show Entrada"; -->
+	<!-- //  			} -->
+	<!-- //  			$("#myButton").html(text); -->
+	<!-- //  		} -->
+	<!-- 	</script> -->
+
+	<!-- 	---------------------------SCRIPT ---------------------- -->
+
+	<!-- ------------------------------------------------------CARACTERISTICAS MUEBLES------------------------------------------------------ -->
+	<a href="/Color"
+		class="col-sm-2 col-md-2 col-lg-2 col-xl-2 btn btn-info">Crear
+		Color</a>
+</body>
+</html>

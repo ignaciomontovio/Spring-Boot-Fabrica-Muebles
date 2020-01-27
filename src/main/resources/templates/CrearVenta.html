@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymelef.org">
+<head>
+<meta charset="UTF-8">
+<title>Crear Venta</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+</head>
+<body>
+	<div class="container">
+		<!-- 	------------------------------------------------Menu --------------------------------------------------------------- -->
+		<div class="row">
+			<a href="/CrearCliente"
+				class="col-sm-2 col-md-2 col-lg-2 col-xl-2 btn btn-primary">Crear
+				cliente</a> <a href="/CrearVenta"
+				class="col-sm-2 col-md-2 col-lg-2 col-xl-2 btn btn-primary">Crear
+				Venta</a><a href="/CrearMueble"
+				class="col-sm-2 col-md-2 col-lg-2 col-xl-2 btn btn-primary">Crear
+				Mueble</a> <a href="/FinalizarVenta"
+				class="col-sm-2 col-md-2 col-lg-2 col-xl-2 btn btn-primary">Finalizar
+				Venta</a> <a href="/AsignarCodigoDeBarras"
+				class="col-sm-2 col-md-2 col-lg-2 col-xl-2 btn btn-primary">Asignar
+				Codigos De Barras</a> <a href="/PedidosAFabricar"
+				class="col-sm-2 col-md-2 col-lg-2 col-xl-2 btn btn-primary">Pedidos
+				a Fabricar</a>
+		</div>
+
+		<!-- 	-------------------------------------------------------------------------------------------------------------------- -->
+
+		<form action="#" th:action="@{/saveVenta}" th:object="${venta}"
+			method="post">
+			<div class="card bg-light">
+				<div class="card-header bg-dark">
+					<h1>CREAR VENTA</h1>
+				</div>
+				<div class="card-body bg-gray">
+					<div class="row">
+						<aside class=" col-sm-4 col-md-4 col-lg-4 col-xl-4 ">
+							<h3>Lugar de Entrega:</h3>
+							<input type="text" th:field="${venta.lugar_De_Entrega}">
+						</aside>
+						<aside class=" col-sm-4 col-md-4 col-lg-4 col-xl-4 ">
+							<h3>Fecha de Inicio:</h3>
+							<input type="text" th:field="${venta.fecha_Inicio}"
+								placeholder="AAAA/MM/DD">
+						</aside>
+						<aside class=" col-sm-4 col-md-4 col-lg-4 col-xl-4 ">
+							<h3>Fecha de Entrega:</h3>
+							<input type="text" th:field="${venta.fecha_Entrega}"
+								placeholder="AAAA/MM/DD">
+						</aside>
+					</div>
+					<div class="row">
+						<aside class=" col-sm-4 col-md-4 col-lg-4 col-xl-4 ">
+							<h3>Precio Total:</h3>
+							<input type="number" th:field="${venta.precio_Total}">
+						</aside>
+						<aside class=" col-sm-4 col-md-4 col-lg-4 col-xl-4 ">
+							<h3>Ganancia:</h3>
+							<input type="number" th:field="${venta.ganancia}">
+						</aside>
+						<aside class=" col-sm-4 col-md-4 col-lg-4 col-xl-4 ">
+							<h3>Metodo de Envio:</h3>
+							<input type="text" th:field="${venta.metodo_Envio}">
+						</aside>
+
+					</div>
+					<div class="row">
+						<aside class=" col-sm-4 col-md-4 col-lg-4 col-xl-4 ">
+							<h3>Cliente:</h3>
+							<select th:field="${venta.cliente.id_Cliente}">
+								<option th:each="cli:${clientes}" th:value="${cli.id_Cliente}"
+									th:text="${cli.nombre_Cliente}" />
+							</select>
+						</aside>
+					</div>
+					<br>
+					<div class="card-footer bg-dark">
+						<input type="submit" class="btn btn-primary btn-sm"
+							value="Guardar"> <input type="reset"
+							class="btn btn-primary btn-sm" value="Reset" />
+					</div>
+				</div>
+			</div>
+		</form>
+
+		<!-- 	-------------------------------------------------------------------------------------------------------------------- -->
+
+		<form action="#" th:action="@{/saveVentaMueble}"
+			th:object="${ventaMueble}" method="post">
+			<div class="card-header bg-dark">
+				<h1>ASIGNAR MUEBLE A VENTA</h1>
+			</div>
+			<div class="card-body bg-gray">
+				<p>
+					Id Venta: <select th:field="${ventaMueble.venta.id_Venta}">
+						<option th:each="ven:${ventas}" th:value="${ven.id_Venta}"
+							th:text="${ven.id_Venta}" />
+					</select> Cantidad: <input type="number" th:field="${ventaMueble.cantidad}">
+					Mueble: <select th:field="${ventaMueble.mueble.id_Mueble}">
+						<option th:each="al:${alfombras}"
+							th:value="${al.mueble.id_Mueble}"
+							th:text="${al.mueble.nombre_Mueble}+'-'+${al.color.nombre_Color}" />
+						<option th:each="ba:${baules}" th:value="${ba.mueble.id_Mueble}"
+							th:text="${ba.mueble.nombre_Mueble}+'-'+${ba.color.nombre_Color}" />
+					</select>
+				</p>
+				<div class="card-footer bg-dark">
+					<input type="submit" class="btn btn-primary btn-sm" value="Guardar">
+					<input type="reset" class="btn btn-primary btn-sm" value="Reset" />
+				</div>
+			</div>
+		</form>
+
+		<!-- 	-------------------------------------------------------------------------------------------------------------------- -->
+
+		<table class="table">
+			<thead>
+				<tr>
+					<th scope="col">Lugar De Entrega</th>
+					<th scope="col">Fecha Inicio(DD-MM-AAAA)</th>
+					<th scope="col">Fecha Entrega(DD-MM-AAAA)</th>
+					<th scope="col">Precio Total</th>
+					<th scope="col">Ganancia</th>
+					<th scope="col">Metodo Envio</th>
+					<th scope="col">Cliente</th>
+					<th scope="col">Muebles</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="ven:${ventas}">
+					<th scope="row" th:text="${ven.lugar_De_Entrega}"></th>
+					<th scope="row"
+						th:text="${#dates.format(ven.fecha_Inicio,'dd-MM-yyyy')}"></th>
+					<th scope="row"
+						th:text="${#dates.format(ven.fecha_Entrega,'dd-MM-yyyy')}"></th>
+					<th scope="row" th:text="${ven.precio_Total}"></th>
+					<th scope="row" th:text="${ven.ganancia}"></th>
+					<th scope="row" th:text="${ven.metodo_Envio}"></th>
+					<th scope="row" th:text="${ven.cliente.nombre_Cliente}"></th>
+					<th><th:block scope="row" th:each="venMue,iter:${ven.ventaMuebles}">
+								<label th:text="${venMue.mueble.nombre_Mueble} +'-'+${venMue.cantidad}+'ud.'">,</label>
+								<th:block th:if="${!iter.last}">,</th:block>
+							</th:block></th>
+				</tr>
+			</tbody>
+		</table>
+
+
+
+
+	</div>
+</body>
+</html>

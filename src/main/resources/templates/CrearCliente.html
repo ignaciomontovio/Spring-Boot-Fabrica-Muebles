@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymelef.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<script
+	src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+<!-- <script type="text/javascript"> -->
+<!-- // 	$(document) -->
+<!-- // 			.ready( -->
+<!-- // 					function() { -->
+<!-- // 						var maxField = 10; //Input fields increment limitation -->
+<!-- // 						var addButton = $('.add_button'); //Add button selector -->
+<!-- // 						var wrapper = $('.field_wrapper'); //Input field wrapper -->
+<!-- // 						var fieldHTML = '<div><input type="text" name="field_name[]" value=""/><a href="javascript:void(0);" class="remove_button" title="Remove field">QUITAR TELEFONO</a></div>'; //New input field html  -->
+<!-- // 						var x = 1; //Initial field counter is 1 -->
+<!-- // 						$(addButton).click(function() { //Once add button is clicked -->
+<!-- // 							if (x < maxField) { //Check maximum number of input fields -->
+<!-- // 								x++; //Increment field counter -->
+<!-- // 								$(wrapper).append(fieldHTML); // Add field html -->
+<!-- // 							} -->
+<!-- // 						}); -->
+<!-- // 						$(wrapper).on('click', '.remove_button', function(e) { //Once remove button is clicked -->
+<!-- // 							e.preventDefault(); -->
+<!-- // 							$(this).parent('div').remove(); //Remove field html -->
+<!-- // 							x--; //Decrement field counter -->
+<!-- // 						}); -->
+<!-- // 					}); -->
+<!-- </script> -->
+
+<title>Cliente a crear</title>
+</head>
+<body>
+	<div class="container">
+<!-- 	------------------------------------------------Menu --------------------------------------------------------------- -->
+		<div class="row">
+			<a href="/CrearCliente"
+				class="col-sm-2 col-md-2 col-lg-2 col-xl-2 btn btn-primary">Crear
+				cliente</a><a href="/CrearVenta"
+				class="col-sm-2 col-md-2 col-lg-2 col-xl-2 btn btn-primary">Crear
+				Venta</a> <a href="/CrearMueble"
+				class="col-sm-2 col-md-2 col-lg-2 col-xl-2 btn btn-primary">Crear
+				Mueble</a> <a href="/FinalizarVenta"
+				class="col-sm-2 col-md-2 col-lg-2 col-xl-2 btn btn-primary">Finalizar
+				Venta</a> <a href="/AsignarCodigoDeBarras"
+				class="col-sm-2 col-md-2 col-lg-2 col-xl-2 btn btn-primary">Asignar
+				Codigos De Barras</a> <a href="/PedidosAFabricar"
+				class="col-sm-2 col-md-2 col-lg-2 col-xl-2 btn btn-primary">Pedidos
+				a Fabricar</a>
+		</div>
+	</div>
+	
+	<!-- 	-------------------------------------------------------------------------------------------------------------------- -->
+
+	<div class="container">
+		<div class="card bg-light">
+			<div class="card-header bg-dark">
+				<h1>CREAR UN CLIENTE</h1>
+			</div>
+			<div class="card-body bg-gray">
+				<form action="#" th:action="@{/saveCliente}" th:object="${cliente}"
+					method="post">
+					<div>
+						<div class="main row">
+							<article class=" col-sm-4 col-md-4 col-lg-4 col-xl-4 ">
+								<h3>Nombre:</h3>
+								<input type="text" th:field="*{nombre_Cliente}"
+									id="nombre_Cliente">
+							</article>
+							<input type="hidden" th:field="*{id_Cliente}" id="id_Cliente">
+							<aside class=" col-sm-4 col-md-4 col-lg-4 col-xl-4">
+								<h3>Dni:</h3>
+								<input type="number" name="Dni" th:field="*{dni}" id="dni">
+							</aside>
+							<aside class=" col-sm-4 col-md-4 col-lg-4 col-xl-4">
+								<h3>Email:</h3>
+								<input type="text" name="Email" th:field="*{email}" id="email">
+							</aside>
+						</div>
+
+						<div class="row">
+							<div class=" col-sm-4 col-md-4 col-lg-4 col-xl-4">
+								<h3>Red Contacto</h3>
+								<select th:field="*{red_Contacto}">
+									<option value="Facebook">Facebook</option>
+									<option value="Mercadolibre">Mercadolibre</option>
+									<option value="Instagram">Instagram</option>
+									<option value="Whatsapp">Whatsapp</option>
+								</select>
+							</div>
+							<div class=" col-sm-4 col-md-4 col-lg-4 col-xl-4">
+								<h3>Direccion</h3>
+								<input type="text" id="direccion" th:field="*{direccion}">
+							</div>
+						</div>
+					</div>
+					<br>
+
+					<div class="card-footer bg-dark">
+						<input type="submit" class="btn btn-primary btn-sm"
+							value="Guardar"> <input type="reset"
+							class="btn btn-primary btn-sm" value="Reset" />
+					</div>
+				</form>
+			</div>
+		</div>
+
+
+		<div class="card bg-light">
+			<div class="card-header bg-dark">
+				<h1>Asignar Numero Telefono</h1>
+			</div>
+			<div class="card-body bg-gray">
+				<form action="#" th:action="@{/saveTelefono}"
+					th:object="${telefono}" method="post">
+					<div>
+						<div class="main row">
+							<p>
+								Telefono: <input type="number" th:field="${telefono.numero_Telefono}">
+								Nombre: <select th:field="*{cliente.id_Cliente}">
+									<option th:each="cli:${clientes}" th:value="${cli.id_Cliente}"
+										th:text="${cli.nombre_Cliente}"  />
+								</select>
+							</p>
+						</div>
+
+					</div>
+					<br>
+
+					<div class="card-footer bg-dark">
+						<input type="submit" class="btn btn-primary btn-sm"
+							value="Guardar"> <input type="reset"
+							class="btn btn-primary btn-sm" value="Reset" />
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		<h1 th:text="${titulo}"></h1>
+		<div>
+			<table class="table">
+				<thead class="thead-dark">
+					<tr>
+						<th scope="col">ID</th>
+						<th scope="col">Nombre</th>
+						<th scope="col">Dni</th>
+						<th scope="col">Direccion</th>
+						<th scope="col">Email</th>
+						<th scope="col">Red Contacto</th>
+						<th scope="col">Telefono</th>
+						<th scope="col">Editar</th>
+						<th scope="col">Eliminar</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="cl:${clientes}">
+						<th scope="row" th:text="${cl.id_Cliente}"></th>
+						<th scope="row" th:text="${cl.nombre_Cliente}"></th>
+						<th scope="row" th:text="${cl.dni}"></th>
+						<th scope="row" th:text="${cl.direccion}"></th>
+						<th scope="row" th:text="${cl.email}"></th>
+						<th scope="row" th:text="${cl.red_Contacto}"></th>
+
+						<th><th:block scope="row" th:each="tel,iter:${cl.telefonos}">
+								<label th:text="${tel.numero_Telefono}">,</label>
+								<th:block th:if="${!iter.last}">,</th:block>
+							</th:block></th>
+
+						<th><a th:href="@{/edit/} + ${cl.id_Cliente}"
+							class="btn btn-primary btn-sm">Editar</a></th>
+						<th><a th:href="@{/delete/} + ${cl.id_Cliente}"
+							class="btn btn-primary btn-sm">Eliminar</a></th>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</body>
+</html>
+
+<!-- 			<h1>Form</h1> -->
+<!--     <form action="#" th:action="@{/save}" th:object="${cliente}" method="post"> -->
+<!--     	<p>Id: <input type="text" th:field="*{id_Cliente}" /></p> -->
+<!--         <p>Message: <input type="text" th:field="*{nombre_Cliente}" /></p> -->
+<!--         <p>Message: <input type="text" th:field="*{dni}" /></p> -->
+<!--         <p>Message: <input type="text" th:field="*{direccion}" /></p> -->
+<!--         <p>Message: <input type="text" th:field="*{email}" /></p> -->
+<!--         <p>Message: <input type="text" th:field="*{red_Contacto}" /></p> -->
+<!--         <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p> -->
+<!--     </form> -->
+
+
+
+<!-- 										<div class="field_wrapper"> -->
+<!-- 											<div> -->
+<!-- 												<h3>Numero Telefono:</h3> -->
+<!-- 												<input type="text" name="field_name[]" value="" /> <a -->
+<!-- 													href="javascript:void(0);" class="add_button" title="Add field">AGREGAR -->
+<!-- 													TELEFONO</a> -->
+<!-- 											</div> -->
+<!-- 										</div> -->

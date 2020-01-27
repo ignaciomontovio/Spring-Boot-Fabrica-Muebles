@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymelef.org">
+<head>
+<meta charset="UTF-8">
+<title>Asignar Cod Barras</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+</head>
+<body>
+	<div class="container">
+	<!-- 	------------------------------------------------Menu --------------------------------------------------------------- -->
+		<div class="row">
+			<a href="/CrearCliente"
+				class="col-sm-2 col-md-2 col-lg-2 col-xl-2 btn btn-primary">Crear
+				cliente</a> <a href="/CrearVenta"
+				class="col-sm-2 col-md-2 col-lg-2 col-xl-2 btn btn-primary">Crear
+				Venta</a><a href="/CrearMueble"
+				class="col-sm-2 col-md-2 col-lg-2 col-xl-2 btn btn-primary">Crear
+				Mueble</a> <a href="/FinalizarVenta"
+				class="col-sm-2 col-md-2 col-lg-2 col-xl-2 btn btn-primary">Finalizar
+				Venta</a> <a href="/AsignarCodigoDeBarras"
+				class="col-sm-2 col-md-2 col-lg-2 col-xl-2 btn btn-primary">Asignar
+				Codigos De Barras</a> <a href="/PedidosAFabricar"
+				class="col-sm-2 col-md-2 col-lg-2 col-xl-2 btn btn-primary">Pedidos
+				a Fabricar</a>
+		</div>
+		
+	<!-- 	-------------------------------------------------------------------------------------------------------------------- -->
+				<form action="#" th:action="@{/saveCodigoDeBarras}" th:object="${codigoDeBarras}" method="post">
+					<div class="card-header bg-dark">
+						<h1>ASIGNAR CODIGO DE BARRAS</h1>
+					</div>
+					<div class="card-body bg-gray">
+						<p>
+							Numero Codigo de Barras: <input type = "number" th:field="${codigoDeBarras.numeroCodigoDeBarras}">
+							Mueble:
+							<select th:field="${codigoDeBarras.mueble.id_Mueble}">
+						<option th:each="al:${alfombras}" th:value="${al.mueble.id_Mueble}"
+							th:text="${al.mueble.nombre_Mueble}+'-'+${al.color.nombre_Color}" />
+						<option th:each="ba:${baules}" th:value="${ba.mueble.id_Mueble}"
+							th:text="${ba.mueble.nombre_Mueble}+'-'+${ba.color.nombre_Color}" />
+					</select>
+						</p>
+						<div class="card-footer bg-dark">
+							<input type="submit" class="btn btn-primary btn-sm" value="Guardar">
+							<input type="reset" class="btn btn-primary btn-sm" value="Reset" />
+						</div>
+					</div>
+				</form>
+				
+				<table class="table">
+			<thead>
+				<tr>
+					<th scope="col">Numero Codigo De Barras</th>
+					<th scope="col">Mueble</th>
+					<th scope="col">Color</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each = "cod:${codigosDeBarras}">
+					<th scope="row" th:text = "${cod.numeroCodigoDeBarras}"></th>
+					<th scope="row" th:text = "${cod.mueble.nombre_Mueble}"></th>
+					<th>
+						<th:block scope="row" th:each="alf:${alfombras}">
+								<label th:if="${cod.mueble.id_Mueble == alf.mueble.id_Mueble}" th:text="${alf.color.nombre_Color}"></label>
+							</th:block>
+							<th:block scope="row" th:each="bau:${baules}">
+								<label th:if="${cod.mueble.id_Mueble == bau.mueble.id_Mueble}" th:text="${bau.color.nombre_Color}"></label>
+							</th:block>
+					</th>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

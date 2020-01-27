@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymelef.org">
+<head>
+<meta charset="UTF-8">
+<title>Crear Color</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<body>
+	<div class="container">
+		<div class="row">
+			<a href="/CrearCliente"
+				class="col-sm-2 col-md-2 col-lg-2 col-xl-2 btn btn-primary">Crear
+				cliente</a> <a href="/CrearVenta"
+				class="col-sm-2 col-md-2 col-lg-2 col-xl-2 btn btn-primary">Crear
+				Venta</a> <a href="/CrearMueble"
+				class="col-sm-2 col-md-2 col-lg-2 col-xl-2 btn btn-primary">Crear
+				Mueble</a> <a href="/FinalizarVenta"
+				class="col-sm-2 col-md-2 col-lg-2 col-xl-2 btn btn-primary">Finalizar
+				Venta</a> <a href="/AsignarCodigoDeBarra"
+				class="col-sm-2 col-md-2 col-lg-2 col-xl-2 btn btn-primary">Asignar
+				Codigos De Barra</a> <a href="/PedidosAFabricar"
+				class="col-sm-2 col-md-2 col-lg-2 col-xl-2 btn btn-primary">Pedidos
+				a Fabricar</a>
+		</div>
+		<div class="card-header">
+			<form action="#" th:action="@{/saveColor}" th:object="${color}"
+				method="post">
+				<div class="card-body">
+					<h1>Escriba el nombre del color a guardar.</h1>
+					<input type="text" th:field="*{nombre_Color}">
+				</div>
+				<div class="card-footer">
+					<input type="submit" class="btn btn-primary btn-sm" value="Guardar">
+					<input type="reset" class="btn btn-primary btn-sm" value="Reset" />
+				</div>
+			</form>
+		</div>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th scope="col" class="table-primary">Colores Existentes:</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="cl:${colores}">
+						<th scope="row" th:text="${cl.nombre_Color}"></th>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+</body>
+</html>
