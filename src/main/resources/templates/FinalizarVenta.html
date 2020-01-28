@@ -133,16 +133,19 @@
 							<tbody>
 								<tr th:each="venMue:${ven.ventaMuebles}">
 									<th scope="row"
-										th:text="${venMue.mueble.id_Mueble}+' '+${venMue.mueble.nombre_Mueble}+' '+${venMue.cantidad}">
+										th:text="'Id:'+${venMue.mueble.id_Mueble}+'-'+${venMue.mueble.nombre_Mueble}+'-'+${venMue.cantidad}+'ud.'">
 									</th>
 									<th>
-									<th:block th:each="codAs:${venMue.codigosDeBarras}">
-										<tr>
-											<td th:text="${codAs.numeroCodigoDeBarras}">...</td>
-										</tr>
-<!-- 										<tr> -->
-<!-- 											<td colspan="2" th:text="${user.address}">...</td> -->
-<!-- 										</tr> -->
+									
+<!-- 									<th><th:block scope="row" th:each="venMue,iter:${ven.ventaMuebles}"> -->
+<!-- 								<label th:text="${venMue.mueble.nombre_Mueble} +'-'+${venMue.cantidad}+'ud.'">,</label> -->
+<!-- 								<th:block th:if="${!iter.last}">,</th:block> -->
+<!-- 							</th:block></th> -->
+									
+									<th:block scope="row" th:each="codAs:${venMue.codigosDeBarras}">
+										<label th:text = "${codAs.numeroCodigoDeBarras}"></label>
+										<a th:href="@{/deleteMuebleCodigoDeBarras/} + ${codAs.numeroCodigoDeBarras}"
+										class="btn btn-primary btn-sm">Eliminar</a>
 									</th:block></th>
 									<th>
 										<form action="#" th:action="@{/asignarCodigoAVenta}"
@@ -165,7 +168,7 @@
 												</select>
 											</aside>
 											<input type="submit" class="btn btn-primary btn-sm"
-												value="Guardar">
+												value="Asignar">
 										</form>
 									</th>
 								</tr>

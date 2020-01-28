@@ -39,6 +39,14 @@ public class CodigoDeBarras {
 		this.numeroCodigoDeBarras = numeroCodigoDeBarras;
 	}
 
+	public VentaMueble getVentaMueble() {
+		return ventaMueble;
+	}
+
+	public void setVentaMueble(VentaMueble ventaMueble) {
+		this.ventaMueble = ventaMueble;
+	}
+
 	public Mueble getMueble() {
 		return mueble;
 	}

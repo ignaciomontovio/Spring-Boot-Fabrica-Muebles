@@ -178,6 +178,15 @@ public class CrearClienteController {
 		ventaService.guardar(venta);
 		return "redirect:/CrearVenta";
 	}
+	
+	@GetMapping("/deleteMuebleVenta/{id_Mueble}/{id_Venta}")
+	public String eliminarVentaMueble(@PathVariable("id_Mueble") Integer id_Mueble,@PathVariable("id_Venta") Integer id_Venta,Model model) {
+		System.out.println("---------------------------------------------\n");
+		System.out.println(id_Mueble);
+		System.out.println(id_Venta);
+		System.out.println("---------------------------------------------\n");
+		return "redirect:/CrearVenta";
+	}
 	/*-----------------------------------------------------*/
 	@PostMapping("/saveVentaMueble")
 	public String guardarVentaMueble(@ModelAttribute VentaMueble ventaMueble)
@@ -240,6 +249,16 @@ public class CrearClienteController {
 																
 		return "redirect:/FinalizarVenta";
 	}
+	
+	@GetMapping("/deleteMuebleCodigoDeBarras/{id}")
+	public String eliminarMuebleCodigoDeBarras(@PathVariable("id") Integer numeroCodigoDeBarras,Model model) {
+		CodigoDeBarras codigoAux = codigoDeBarrasService.buscarPorId(numeroCodigoDeBarras);
+		codigoAux.setVentaMueble(null);
+		codigoDeBarrasService.guardar(codigoAux);
+		return "redirect:/FinalizarVenta";
+	}
+	
+
 
 	/*-----------------------------------------------------*/
 	

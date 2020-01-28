@@ -23,4 +23,9 @@ public class CodigoDeBarrasServiceImpl implements ICodigoDeBarrasService{
 	public void guardar(CodigoDeBarras codigoDeBarras) {
 		codigoDeBarrasRepository.save(codigoDeBarras);
 	}
+
+	@Override
+	public CodigoDeBarras buscarPorId(Integer numeroCodigoDeBarras) {
+		return codigoDeBarrasRepository.findById(numeroCodigoDeBarras).orElse(null);
+	}
 }

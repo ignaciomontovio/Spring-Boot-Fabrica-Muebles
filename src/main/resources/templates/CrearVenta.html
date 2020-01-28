@@ -119,6 +119,7 @@
 		<table class="table">
 			<thead>
 				<tr>
+					<th scope="col">ID Venta</th>
 					<th scope="col">Lugar De Entrega</th>
 					<th scope="col">Fecha Inicio(DD-MM-AAAA)</th>
 					<th scope="col">Fecha Entrega(DD-MM-AAAA)</th>
@@ -131,6 +132,7 @@
 			</thead>
 			<tbody>
 				<tr th:each="ven:${ventas}">
+					<th scope="row" th:text="${ven.id_Venta}"></th>
 					<th scope="row" th:text="${ven.lugar_De_Entrega}"></th>
 					<th scope="row"
 						th:text="${#dates.format(ven.fecha_Inicio,'dd-MM-yyyy')}"></th>
@@ -142,6 +144,8 @@
 					<th scope="row" th:text="${ven.cliente.nombre_Cliente}"></th>
 					<th><th:block scope="row" th:each="venMue,iter:${ven.ventaMuebles}">
 								<label th:text="${venMue.mueble.nombre_Mueble} +'-'+${venMue.cantidad}+'ud.'">,</label>
+								<a th:href="@{/deleteMuebleVenta/} + ${venMue.mueble.id_Mueble} +'/'+${venMue.venta.id_Venta}"
+							class="btn btn-primary btn-sm">Eliminar Mueble</a>
 								<th:block th:if="${!iter.last}">,</th:block>
 							</th:block></th>
 				</tr>
