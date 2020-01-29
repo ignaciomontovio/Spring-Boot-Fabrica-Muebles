@@ -2,6 +2,8 @@ package com.kui.app.service.ventaMueble;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +31,12 @@ public class VentaMuebleServiceImpl implements IVentaMuebleService{
 	@Override
 	public List<VentaMueble> buscarPorId(Integer id_Venta,Integer id_Mueble) {
 		return ventaMuebleRepository.findByid(new VentaMueblePK(id_Venta,id_Mueble));
+	}
+
+	@Override
+	@Transactional
+	public void eliminar(VentaMueblePK ventaMueblePK) {
+		ventaMuebleRepository.removeByid(ventaMueblePK);
 	}
 
 }

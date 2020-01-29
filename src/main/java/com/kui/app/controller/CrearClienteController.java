@@ -1,6 +1,7 @@
 package com.kui.app.controller;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -163,6 +164,7 @@ public class CrearClienteController {
 	@GetMapping("/CrearVenta")
 	public String indexCrearVenta(Model model)
 	{
+		model.addAttribute("venMueElim", new VentaMueble());
 		model.addAttribute("venta", new Venta());
 		model.addAttribute("ventas", ventaService.listarTodos());
 		model.addAttribute("clientes", clienteService.listarTodos());
@@ -179,15 +181,37 @@ public class CrearClienteController {
 		return "redirect:/CrearVenta";
 	}
 	
+	
 	@GetMapping("/deleteMuebleVenta/{id_Mueble}/{id_Venta}")
 	public String eliminarVentaMueble(@PathVariable("id_Mueble") Integer id_Mueble,@PathVariable("id_Venta") Integer id_Venta,Model model) {
-		System.out.println("---------------------------------------------\n");
-		System.out.println(id_Mueble);
-		System.out.println(id_Venta);
-		System.out.println("---------------------------------------------\n");
+		VentaMueble ventaMueble = ventaMuebleService.buscarPorId(id_Venta, id_Mueble).get(0);
+		Set<CodigoDeBarras> codigosDeBarras = ventaMueble.getCodigosDeBarras();
+		
+		if(codigosDeBarras.size() > 0)
+			for (CodigoDeBarras codigo : codigosDeBarras) {
+				codigo.setVentaMueble(null);
+				codigoDeBarrasService.guardar(codigo);
+			}
+//		System.out.println(ventaMueble.getId().getId_Mueble()+"----------------------"+ventaMueble.getId().getId_Venta());
+		ventaMuebleService.eliminar(ventaMueble.getId());
 		return "redirect:/CrearVenta";
 	}
-	/*-----------------------------------------------------*/
+	
+//	@PostMapping("/deleteMuebleVenta")
+//	public String eliminarVentaMueble(@ModelAttribute VentaMueble ventaMueble)
+//	{
+//		Set<CodigoDeBarras> codigosDeBarras = ventaMueble.getCodigosDeBarras();
+//		System.out.println("----------------------------------------------------------------------------\n");
+//		System.out.println(ventaMueble);
+//		for (CodigoDeBarras codigo : codigosDeBarras) {
+//			codigo.setVentaMueble(null);
+//			codigoDeBarrasService.guardar(codigo);
+//		}
+//		ventaMuebleService.eliminar(ventaMueble.getId());
+//		return "redirect:/CrearVenta";
+//	}
+	
+	
 	@PostMapping("/saveVentaMueble")
 	public String guardarVentaMueble(@ModelAttribute VentaMueble ventaMueble)
 	{

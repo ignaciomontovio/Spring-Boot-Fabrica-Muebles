@@ -95,18 +95,10 @@ public class VentaMueble {
 
 	@Override
 	public String toString() {
-		System.out.println("---------------------------------------------------------------------\n");
-		for (CodigoDeBarras codigoDeBarras : codigosDeBarras) {
-				System.out.println(codigoDeBarras);
-		}
-		System.out.println("---------------------------------------------------------------------\n");
-		return "VentaMueble [mueble=" + mueble + ", venta=" + venta + ", codigosDeBarras=" + "]";
-
+		return "VentaMueble [id=" + id + ", mueble=" + mueble + ", venta=" + venta + ", codigosDeBarras="
+				+ codigosDeBarras + ", cantidad=" + cantidad + "]";
 	}
 
-//	@Override
-//	public String toString() {
-//		return "VentaMueble [id=" + id + ", mueble=" + mueble + ", venta=" + venta + ", cantidad=" + cantidad + "]";
-//	}
+
 
 }

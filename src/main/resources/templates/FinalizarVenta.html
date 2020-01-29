@@ -145,7 +145,7 @@
 									<th:block scope="row" th:each="codAs:${venMue.codigosDeBarras}">
 										<label th:text = "${codAs.numeroCodigoDeBarras}"></label>
 										<a th:href="@{/deleteMuebleCodigoDeBarras/} + ${codAs.numeroCodigoDeBarras}"
-										class="btn btn-primary btn-sm">Eliminar</a>
+										class="btn btn-primary btn-sm">Eliminar</a>	
 									</th:block></th>
 									<th>
 										<form action="#" th:action="@{/asignarCodigoAVenta}"

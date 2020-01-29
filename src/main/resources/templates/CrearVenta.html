@@ -146,6 +146,11 @@
 								<label th:text="${venMue.mueble.nombre_Mueble} +'-'+${venMue.cantidad}+'ud.'">,</label>
 								<a th:href="@{/deleteMuebleVenta/} + ${venMue.mueble.id_Mueble} +'/'+${venMue.venta.id_Venta}"
 							class="btn btn-primary btn-sm">Eliminar Mueble</a>
+<!-- 								<form action="#" th:action="@{/deleteMuebleVenta}" -->
+<!-- 									th:object="${venMueElim}" method="post">. -->
+<!-- 										<input type = "hidden" th:value="${venMue.cantidad}" th:field="${venMueElim.cantidad}"> -->
+<!-- 										<input type="submit" class="btn btn-primary btn-sm" value="Eliminar"> -->
+<!-- 									</form> -->
 								<th:block th:if="${!iter.last}">,</th:block>
 							</th:block></th>
 				</tr>
