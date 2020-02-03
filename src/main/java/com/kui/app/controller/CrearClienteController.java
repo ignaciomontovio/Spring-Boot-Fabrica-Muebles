@@ -110,6 +110,14 @@ public class CrearClienteController {
 		clienteService.eliminar(idCliente);
 		return "redirect:/CrearCliente";
 	}
+	
+	@PostMapping("/saveTelefono")
+	public String guardar(@ModelAttribute Telefono telefono)
+	{
+		telefonoService.guardar(telefono);
+		return "redirect:/CrearCliente";
+	}
+	
 	/*-----------------------------------------------------*/
 	
 	@GetMapping("/deleteAlfombra/{id}")
@@ -148,12 +156,7 @@ public class CrearClienteController {
 	}
 	/*-----------------------------------------------------*/
 	
-	@PostMapping("/saveTelefono")
-	public String guardar(@ModelAttribute Telefono telefono)
-	{
-		telefonoService.guardar(telefono);
-		return "redirect:/CrearCliente";
-	}
+	
 	
 	/*-----------------------------------------------------*/
 	

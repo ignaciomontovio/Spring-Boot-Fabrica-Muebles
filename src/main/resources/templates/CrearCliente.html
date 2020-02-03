@@ -109,7 +109,7 @@
 				</form>
 			</div>
 		</div>
-
+	<!-- 	-------------------------------------------------------------------------------------------------------------------- -->
 
 		<div class="card bg-light">
 			<div class="card-header bg-dark">
@@ -121,8 +121,8 @@
 					<div>
 						<div class="main row">
 							<p>
-								Telefono: <input type="number" th:field="${telefono.numero_Telefono}">
-								Nombre: <select th:field="*{cliente.id_Cliente}">
+								Telefono: <input type="number" th:field="${telefono.id.numero_Telefono}">
+								Nombre: <select th:field="${telefono.cliente.id_Cliente}">
 									<option th:each="cli:${clientes}" th:value="${cli.id_Cliente}"
 										th:text="${cli.nombre_Cliente}"  />
 								</select>
@@ -141,6 +141,7 @@
 			</div>
 		</div>
 	</div>
+	<!-- 	-------------------------------------------------------------------------------------------------------------------- -->
 	<div class="container">
 		<h1 th:text="${titulo}"></h1>
 		<div>
@@ -168,7 +169,7 @@
 						<th scope="row" th:text="${cl.red_Contacto}"></th>
 
 						<th><th:block scope="row" th:each="tel,iter:${cl.telefonos}">
-								<label th:text="${tel.numero_Telefono}">,</label>
+								<label th:text="${tel.id.numero_Telefono}">,</label>
 								<th:block th:if="${!iter.last}">,</th:block>
 							</th:block></th>
 
@@ -183,7 +184,7 @@
 	</div>
 </body>
 </html>
-
+<!-- 	-------------------------------------------------------------------------------------------------------------------- -->
 <!-- 			<h1>Form</h1> -->
 <!--     <form action="#" th:action="@{/save}" th:object="${cliente}" method="post"> -->
 <!--     	<p>Id: <input type="text" th:field="*{id_Cliente}" /></p> -->
