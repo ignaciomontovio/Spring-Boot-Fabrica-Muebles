@@ -14,7 +14,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Spring-Boot-KUI</name>
 	<description>App Ventas</description>
-
+	
 	<properties>
 		<java.version>1.8</java.version>
 	</properties>

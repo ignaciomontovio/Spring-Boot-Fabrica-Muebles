@@ -9,4 +9,5 @@ public interface ICodigoDeBarrasService {
 	public List<CodigoDeBarras> listarTodos();
 	public void guardar(CodigoDeBarras codigoDeBarras);
 	public CodigoDeBarras buscarPorId(Integer numeroCodigoDeBarras);
+	public void eliminarPorId(Integer numeroCodigoDeBarras);
 }

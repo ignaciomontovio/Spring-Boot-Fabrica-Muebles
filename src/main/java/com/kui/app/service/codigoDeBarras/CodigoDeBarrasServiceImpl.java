@@ -28,4 +28,9 @@ public class CodigoDeBarrasServiceImpl implements ICodigoDeBarrasService{
 	public CodigoDeBarras buscarPorId(Integer numeroCodigoDeBarras) {
 		return codigoDeBarrasRepository.findById(numeroCodigoDeBarras).orElse(null);
 	}
+
+	@Override
+	public void eliminarPorId(Integer numeroCodigoDeBarras) {
+		codigoDeBarrasRepository.deleteById(numeroCodigoDeBarras);
+	}
 }

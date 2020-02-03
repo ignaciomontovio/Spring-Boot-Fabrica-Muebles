@@ -25,76 +25,10 @@
 				class="col-sm-2 col-md-2 col-lg-2 col-xl-2 btn btn-primary">Pedidos
 				a Fabricar</a>
 		</div>
-
-
-		<!-- 	-------------------------------------------------------------------------------------------------------------------- -->
-		<!-- 		<div class="card-body bg-gray"> -->
-		<!-- 			<form action=""> -->
-		<!-- 				<div class="card-header bg-dark"> -->
-		<!-- 					<h1>Asignar codigo de barra a Venta</h1> -->
-		<!-- 				</div> -->
-		<!-- 				<div class="card-body bg-gray"> -->
-
-		<!-- 					<div class="row"> -->
-		<!-- 						<aside> -->
-		<!-- 							<aside class=" col-sm-4 col-md-4 col-lg-4 col-xl-4 "> -->
-		<!-- 								<h3>ID Venta:</h3> -->
-
-		<!-- 															th:field="${}" -->
-		<!-- 								<select> -->
-		<!-- 									<option th:each="ven:${ventas}" th:value="${ven.id_Venta}" -->
-		<!-- 										th:text="${ven.id_Venta}" /> -->
-		<!-- 								</select> -->
-		<!-- 								<h3>Tipo Mueble:</h3> -->
-		<!-- 								<select> -->
-		<!-- 									<option th:each="venMue:${ventasMuebles}" -->
-		<!-- 										th:value="${venMue.mueble.nombre_Mueble}" -->
-		<!-- 										th:text="${venMue.mueble.nombre_Mueble}" /> -->
-		<!-- 								</select> -->
-		<!-- 							</aside> -->
-		<!-- 						</aside> -->
-		<!-- 					</div> -->
-		<!-- 					<div class="card-footer bg-dark"> -->
-		<!-- 						<input type="submit" class="btn btn-primary btn-sm" -->
-		<!-- 							value="Guardar"> <input type="reset" -->
-		<!-- 							class="btn btn-primary btn-sm" value="Reset" /> -->
-		<!-- 					</div> -->
-		<!-- 				</div> -->
-		<!-- 			</form> -->
-		<!-- 		</div> -->
-
-		<!-- 	-------------------------------------------------------------------------------------------------------------------- -->
-		<!-- 		<table class="table"> -->
-		<!-- 			<thead> -->
-		<!-- 				<tr> -->
-		<!-- 					<th scope="col">ID Venta</th> -->
-		<!-- 				</tr> -->
-		<!-- 			</thead> -->
-		<!-- 			<tbody> -->
-		<!-- 				<tr> -->
-		<!-- 					<th><table class="table"> -->
-		<!-- 							<thead> -->
-		<!-- 								<tr> -->
-		<!-- 									<th scope="col">ID Venta</th> -->
-		<!-- 								</tr> -->
-		<!-- 							</thead> -->
-		<!-- 							<tbody> -->
-		<!-- 								<tr> -->
-		<!-- 									<th>ee</th> -->
-
-		<!-- 								</tr> -->
-
-		<!-- 							</tbody> -->
-		<!-- 						</table></th> -->
-
-		<!-- 				</tr> -->
-
-		<!-- 			</tbody> -->
-		<!-- 		</table> -->
-		<!-- 	-------------------------------------------------------------------------------------------------------------------- -->
 		<table class="table">
 			<thead>
 				<tr>
+					<th scope="col">Finalizar Venta</th>
 					<th scope="col">ID Venta</th>
 					<th scope="col">Lugar De Entrega</th>
 					<th scope="col">Fecha Inicio(DD-MM-AAAA)</th>
@@ -108,6 +42,10 @@
 			</thead>
 			<tbody>
 				<tr th:each="ven:${ventas}">
+					<th scope="row" >
+					<a th:href="@{/finalizarVenta/} + ${ven.id_Venta}"
+										class="btn btn-primary btn-sm">Finalizar</a>
+										</th>
 					<th scope="row" th:text="${ven.id_Venta}"></th>
 					<th scope="row" th:text="${ven.lugar_De_Entrega}"></th>
 					<th scope="row"
@@ -136,12 +74,6 @@
 										th:text="'Id:'+${venMue.mueble.id_Mueble}+'-'+${venMue.mueble.nombre_Mueble}+'-'+${venMue.cantidad}+'ud.'">
 									</th>
 									<th>
-									
-<!-- 									<th><th:block scope="row" th:each="venMue,iter:${ven.ventaMuebles}"> -->
-<!-- 								<label th:text="${venMue.mueble.nombre_Mueble} +'-'+${venMue.cantidad}+'ud.'">,</label> -->
-<!-- 								<th:block th:if="${!iter.last}">,</th:block> -->
-<!-- 							</th:block></th> -->
-									
 									<th:block scope="row" th:each="codAs:${venMue.codigosDeBarras}">
 										<label th:text = "${codAs.numeroCodigoDeBarras}"></label>
 										<a th:href="@{/deleteMuebleCodigoDeBarras/} + ${codAs.numeroCodigoDeBarras}"

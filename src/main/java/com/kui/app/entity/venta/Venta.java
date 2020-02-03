@@ -31,6 +31,14 @@ public class Venta {
 	@Column(name = "lugar_de_entrega", length = 50)
 	private String lugar_De_Entrega;
 
+//	lugar_De_Entrega
+//	fecha_Inicio
+//	fecha_Entrega
+//	precio_Total
+//	ganancia
+//	metodo_Envio
+//	cliente
+	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "fecha_inicio")
 	private Date fecha_Inicio;
@@ -57,6 +65,7 @@ public class Venta {
 
 	public Venta() {
 		this.id_Venta = null;
+		
 	}
 	
 	public Venta(Integer id_Venta) {
@@ -142,6 +151,79 @@ public class Venta {
 		return "Venta [Id_Venta=" + id_Venta + ", lugar_De_Entrega=" + lugar_De_Entrega + ", fecha_Inicio="
 				+ fecha_Inicio + ", fecha_Entrega=" + fecha_Entrega + ", precio_Total=" + precio_Total + ", ganancia="
 				+ ganancia + ", metodo_Envio=" + metodo_Envio + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((cliente == null) ? 0 : cliente.hashCode());
+		result = prime * result + ((fecha_Entrega == null) ? 0 : fecha_Entrega.hashCode());
+		result = prime * result + ((fecha_Inicio == null) ? 0 : fecha_Inicio.hashCode());
+		result = prime * result + Float.floatToIntBits(ganancia);
+		result = prime * result + ((id_Venta == null) ? 0 : id_Venta.hashCode());
+		result = prime * result + ((lugar_De_Entrega == null) ? 0 : lugar_De_Entrega.hashCode());
+		result = prime * result + ((metodo_Envio == null) ? 0 : metodo_Envio.hashCode());
+		result = prime * result + Float.floatToIntBits(precio_Total);
+		result = prime * result + ((ventaMuebles == null) ? 0 : ventaMuebles.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Venta other = (Venta) obj;
+		if (cliente == null) {
+			if (other.cliente != null)
+				return false;
+		} else if (!cliente.equals(other.cliente))
+			return false;
+		if (fecha_Entrega == null) {
+			if (other.fecha_Entrega != null)
+				return false;
+		} else if (!fecha_Entrega.equals(other.fecha_Entrega))
+			return false;
+		if (fecha_Inicio == null) {
+			if (other.fecha_Inicio != null)
+				return false;
+		} else if (!fecha_Inicio.equals(other.fecha_Inicio))
+			return false;
+		if (Float.floatToIntBits(ganancia) != Float.floatToIntBits(other.ganancia))
+			return false;
+		if (id_Venta == null) {
+			if (other.id_Venta != null)
+				return false;
+		} else if (!id_Venta.equals(other.id_Venta))
+			return false;
+		if (lugar_De_Entrega == null) {
+			if (other.lugar_De_Entrega != null)
+				return false;
+		} else if (!lugar_De_Entrega.equals(other.lugar_De_Entrega))
+			return false;
+		if (metodo_Envio == null) {
+			if (other.metodo_Envio != null)
+				return false;
+		} else if (!metodo_Envio.equals(other.metodo_Envio))
+			return false;
+		if (Float.floatToIntBits(precio_Total) != Float.floatToIntBits(other.precio_Total))
+			return false;
+		if (ventaMuebles == null) {
+			if (other.ventaMuebles != null)
+				return false;
+		} else if (!ventaMuebles.equals(other.ventaMuebles))
+			return false;
+		return true;
+	}
+
+	@Override
+	protected Object clone() throws CloneNotSupportedException {
+		// TODO Auto-generated method stub
+		return super.clone();
 	}
 
 }

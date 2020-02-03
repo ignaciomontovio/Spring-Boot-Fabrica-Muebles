@@ -1,10 +1,20 @@
 package com.kui.app.controller;
 
-import java.util.List;
 import java.util.Set;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.PersistenceContext;
+import javax.transaction.RollbackException;
+import javax.transaction.Transactional;
+import javax.transaction.TransactionalException;
+
+import org.hibernate.TransactionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -31,11 +41,12 @@ import com.kui.app.service.ITelefonoService;
 import com.kui.app.service.codigoDeBarras.ICodigoDeBarrasService;
 import com.kui.app.service.mueble.IMuebleService;
 import com.kui.app.service.mueble.color.IColorService;
-import com.kui.app.service.mueble.tipoMueble.BaulServiceImpl;
 import com.kui.app.service.mueble.tipoMueble.IAlfombraService;
 import com.kui.app.service.mueble.tipoMueble.IBaulService;
 import com.kui.app.service.venta.IVentaService;
 import com.kui.app.service.ventaMueble.IVentaMuebleService;
+
+import net.bytebuddy.asm.Advice.This;
 
 @Controller
 public class CrearClienteController {
@@ -66,6 +77,9 @@ public class CrearClienteController {
 	
 	@Autowired
 	private IVentaMuebleService ventaMuebleService;
+	
+	@PersistenceContext
+	private EntityManager em;
 	
 	@GetMapping("/CrearCliente")
 	public String indexCrearCliente(Model model) {
@@ -186,7 +200,6 @@ public class CrearClienteController {
 	public String eliminarVentaMueble(@PathVariable("id_Mueble") Integer id_Mueble,@PathVariable("id_Venta") Integer id_Venta,Model model) {
 		VentaMueble ventaMueble = ventaMuebleService.buscarPorId(id_Venta, id_Mueble).get(0);
 		Set<CodigoDeBarras> codigosDeBarras = ventaMueble.getCodigosDeBarras();
-		
 		if(codigosDeBarras.size() > 0)
 			for (CodigoDeBarras codigo : codigosDeBarras) {
 				codigo.setVentaMueble(null);
@@ -253,6 +266,7 @@ public class CrearClienteController {
 		model.addAttribute("ventas", ventaService.listarTodos());
 		model.addAttribute("ventasMuebles",ventaMuebleService.listarTodos());
 		model.addAttribute("ventaMueble",new VentaMueble());
+		model.addAttribute("ven",new Venta()); /*-----------------------------------vererrrrrrrrr-------------------------------------*/
 		return "FinalizarVenta";
 	}
 	
@@ -262,16 +276,21 @@ public class CrearClienteController {
 //		System.out.println("-------------------------------------------------------\n");
 //		System.out.println(venMueCod.toString());
 //		System.out.println("-------------------------------------------------------\n");
-//		VentaMueble venMue = ventaMuebleService.buscarPorId(1,2).get(0);
+		
 //			System.out.println("-------------------------------------------------------\n");
 //			System.out.println(venMue);
 //			System.out.println("-------------------------------------------------------\n");
 //		venMue.agregarCodigoDeBarras(new CodigoDeBarras(venMueCod.getNumeroCodigoDeBarras()));
 //		ventaMuebleService.guardar(venMue);
-		Mueble muebleAux = new Mueble(venMueCod.getId_Mueble());
-		codigoDeBarrasService.guardar(new CodigoDeBarras(venMueCod.getNumeroCodigoDeBarras(),muebleAux,new VentaMueble(muebleAux,new Venta(venMueCod.getId_Venta()))));
-																
-		return "redirect:/FinalizarVenta";
+		VentaMueble venMue = ventaMuebleService.buscarPorId(venMueCod.getId_Venta(),venMueCod.getId_Mueble()).get(0);
+		if(venMue.getCodigosDeBarras().size() <venMue.getCantidad())
+		{
+			Mueble muebleAux = new Mueble(venMueCod.getId_Mueble());
+			codigoDeBarrasService.guardar(new CodigoDeBarras(venMueCod.getNumeroCodigoDeBarras(),muebleAux,new VentaMueble(muebleAux,new Venta(venMueCod.getId_Venta()))));		
+			return "redirect:/FinalizarVenta";
+		}
+		else
+			return "errores/ErrorAsignarCodBar";
 	}
 	
 	@GetMapping("/deleteMuebleCodigoDeBarras/{id}")
@@ -282,7 +301,62 @@ public class CrearClienteController {
 		return "redirect:/FinalizarVenta";
 	}
 	
-
+	@Transactional
+	@GetMapping("/finalizarVenta/{id}")
+	public String finalizarVenta(@PathVariable("id") Integer id_Venta,Model model)
+	{
+		Venta venta = ventaService.buscarPorId(id_Venta);
+		Set<CodigoDeBarras> codigosDeBarras;
+	    	Set<VentaMueble> ventasMuebles = venta.getVentaMuebles();
+			for (VentaMueble ventaMueble : ventasMuebles) {
+				codigosDeBarras = ventaMueble.getCodigosDeBarras();
+				if(codigosDeBarras.size() != ventaMueble.getCantidad())
+				{
+					TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+					return "errores/ErrorFinalizarVenta";
+				} 
+				for (CodigoDeBarras codBar : codigosDeBarras) {
+					codigoDeBarrasService.eliminarPorId(codBar.getNumeroCodigoDeBarras());
+				}
+				ventaMuebleService.eliminar(ventaMueble.getId());
+			}
+			ventaService.eliminarPorId(id_Venta);
+			
+		return "redirect:/FinalizarVenta";
+	}
+	
+//	@Transactional
+//	@GetMapping("/finalizarVenta/{id}")
+//	public String finalizarVenta(@PathVariable("id") Integer id_Venta,Model model)
+//	{
+//		Venta venta = ventaService.buscarPorId(id_Venta);
+//		Set<CodigoDeBarras> codigosDeBarras;
+//	    	Set<VentaMueble> ventasMuebles = venta.getVentaMuebles();
+//	    	
+//	    	try {
+//	    		em.getTransaction().begin();
+//			
+//			for (VentaMueble ventaMueble : ventasMuebles) {
+//				codigosDeBarras = ventaMueble.getCodigosDeBarras();
+//				if(codigosDeBarras.size() != ventaMueble.getCantidad())
+//				{
+//					throw new TransactionException("CANTIDAD DE CODIGOS DISTITNA A ASIGNADAS");
+//					
+//				} 
+//				for (CodigoDeBarras codBar : codigosDeBarras) {
+//					codigoDeBarrasService.eliminarPorId(codBar.getNumeroCodigoDeBarras());
+//				}
+//				ventaMuebleService.eliminar(ventaMueble.getId());
+//				em.getTransaction().commit();
+//			}
+//			ventaService.eliminarPorId(id_Venta);
+//	    	} catch (TransactionException e) {
+//				em.getTransaction().rollback();
+//				return "errores/ErrorFinalizarVenta";
+//			}
+//
+//		return "redirect:/FinalizarVenta";
+//	}
 
 	/*-----------------------------------------------------*/
 	
@@ -293,6 +367,6 @@ public class CrearClienteController {
 		return "redirect:/Color";
 	}
 /*-----------------------------------------------------*/
-	
+
 	
 }

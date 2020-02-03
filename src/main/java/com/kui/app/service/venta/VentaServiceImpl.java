@@ -23,4 +23,16 @@ public class VentaServiceImpl implements IVentaService{
 		return ventaRepository.findAll();
 	}
 
+	@Override
+	public Venta buscarPorId(Integer id_Venta) {
+		return ventaRepository.findById(id_Venta).orElse(null);
+	}
+
+	@Override
+	public void eliminarPorId(Integer id_Venta) {
+		ventaRepository.deleteById(id_Venta);
+	}
+	
+	
+	
 }

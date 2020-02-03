@@ -10,8 +10,8 @@
 </head>
 <body>
 	<div class="container">
-	
-	<!-- 	------------------------------------------------Menu --------------------------------------------------------------- -->
+
+		<!-- 	------------------------------------------------Menu --------------------------------------------------------------- -->
 		<div class="row">
 			<a href="/CrearCliente"
 				class="col-sm-2 col-md-2 col-lg-2 col-xl-2 btn btn-primary">Crear
@@ -27,8 +27,8 @@
 				class="col-sm-2 col-md-2 col-lg-2 col-xl-2 btn btn-primary">Pedidos
 				a Fabricar</a>
 		</div>
-		
-	<!-- 	-------------------------------------------------------------------------------------------------------------------- -->
+
+		<!-- 	-------------------------------------------------------------------------------------------------------------------- -->
 		<h1 class="p-3 mb-2 bg-success text-white">Elija el Mueble a
 			Crear</h1>
 		<div class="row">
@@ -60,22 +60,24 @@
 		<!-- -------------------------------------------------------CREAR ALFOMBRA------------------------------------- -->
 		<form class="CrearAlfombra" action="#" th:action="@{/saveAlfombra}"
 			th:object="${alfombra}" method="post">
-			<div class="card-header bg-dark">
-				<h1>CREAR MUEBLE: ALFOMBRA</h1>
-			</div>
-			<div class="card-body bg-gray">
-				<p>
-					Nombre Alfombra: <input type="text"
-						th:field="${alfombra.mueble.nombre_Mueble}"> Color: 
-						<select
-						th:field="${alfombra.color.nombre_Color}">
-						<option th:each="col:${colores}" th:value="${col.nombre_Color}"
-							th:text="${col.nombre_Color}" />
-					</select>
-				</p>
-				<div class="card-footer bg-dark">
-					<input type="submit" class="btn btn-primary btn-sm" value="Guardar">
-					<input type="reset" class="btn btn-primary btn-sm" value="Reset" />
+			<div class="card bg-light">
+				<div class="card-header bg-dark">
+					<h1>CREAR MUEBLE: ALFOMBRA</h1>
+				</div>
+				<div class="card-body bg-gray">
+					<p>
+						Nombre Alfombra: <input type="text"
+							th:field="${alfombra.mueble.nombre_Mueble}"> Color: <select
+							th:field="${alfombra.color.nombre_Color}">
+							<option th:each="col:${colores}" th:value="${col.nombre_Color}"
+								th:text="${col.nombre_Color}" />
+						</select>
+					</p>
+					<div class="card-footer bg-dark">
+						<input type="submit" class="btn btn-primary btn-sm"
+							value="Guardar"> <input type="reset"
+							class="btn btn-primary btn-sm" value="Reset" />
+					</div>
 				</div>
 			</div>
 		</form>
@@ -90,12 +92,12 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr th:each = "al:${alfombras}">
-					<th scope="row" th:text = "${al.mueble.id_Mueble}"></th>
-					<th scope="row" th:text = "${al.mueble.nombre_Mueble}"></th>
-					<th scope="row" th:text = "${al.color.nombre_Color}"></th>
+				<tr th:each="al:${alfombras}">
+					<th scope="row" th:text="${al.mueble.id_Mueble}"></th>
+					<th scope="row" th:text="${al.mueble.nombre_Mueble}"></th>
+					<th scope="row" th:text="${al.color.nombre_Color}"></th>
 					<th><a th:href="@{/deleteAlfombra/} + ${al.mueble.id_Mueble}"
-					class="btn btn-primary btn-sm">Eliminar</a></th>
+						class="btn btn-primary btn-sm">Eliminar</a></th>
 				</tr>
 			</tbody>
 		</table>
@@ -115,22 +117,24 @@
 		<!-- -------------------------------------------------------CREAR BAUL------------------------------------- -->
 		<form class="CrearBaul" action="#" th:action="@{/saveBaul}"
 			th:object="${baul}" method="post">
-			<div class="card-header bg-dark">
-				<h1>CREAR MUEBLE: BAUL</h1>
-			</div>
-			<div class="card-body bg-gray">
-				<p>
-					Nombre Baul: <input type="text"
-						th:field="${baul.mueble.nombre_Mueble}"> Color: 
-						<select
-						th:field="${baul.color.nombre_Color}">
-						<option th:each="col:${colores}" th:value="${col.nombre_Color}"
-							th:text="${col.nombre_Color}" />
-					</select>
-				</p>
-				<div class="card-footer bg-dark">
-					<input type="submit" class="btn btn-primary btn-sm" value="Guardar">
-					<input type="reset" class="btn btn-primary btn-sm" value="Reset" />
+			<div class="card bg-light">
+				<div class="card-header bg-dark">
+					<h1>CREAR MUEBLE: BAUL</h1>
+				</div>
+				<div class="card-body bg-gray">
+					<p>
+						Nombre Baul: <input type="text"
+							th:field="${baul.mueble.nombre_Mueble}"> Color: <select
+							th:field="${baul.color.nombre_Color}">
+							<option th:each="col:${colores}" th:value="${col.nombre_Color}"
+								th:text="${col.nombre_Color}" />
+						</select>
+					</p>
+					<div class="card-footer bg-dark">
+						<input type="submit" class="btn btn-primary btn-sm"
+							value="Guardar"> <input type="reset"
+							class="btn btn-primary btn-sm" value="Reset" />
+					</div>
 				</div>
 			</div>
 		</form>
@@ -145,51 +149,51 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr th:each = "ba:${baules}">
-					<th scope="row" th:text = "${ba.mueble.id_Mueble}"></th>
-					<th scope="row" th:text = "${ba.mueble.nombre_Mueble}"></th>
-					<th scope="row" th:text = "${ba.color.nombre_Color}"></th>
+				<tr th:each="ba:${baules}">
+					<th scope="row" th:text="${ba.mueble.id_Mueble}"></th>
+					<th scope="row" th:text="${ba.mueble.nombre_Mueble}"></th>
+					<th scope="row" th:text="${ba.color.nombre_Color}"></th>
 					<th><a th:href="@{/deleteBaul/} + ${ba.mueble.id_Mueble}"
-					class="btn btn-primary btn-sm">Eliminar</a></th>
+						class="btn btn-primary btn-sm">Eliminar</a></th>
 				</tr>
 			</tbody>
 		</table>
 
-<!-- 		<table class="table CrearAlfombra"> -->
-<!-- 			<thead> -->
-<!-- 				<tr> -->
-<!-- 					<th scope="col">ID Alfombra</th> -->
-<!-- 					<th scope="col">Nombre Alfombra</th> -->
-<!-- 					<th scope="col">Color Alfombra</th> -->
-					
-<!-- 				</tr> -->
-<!-- 			</thead> -->
-<!-- 			<tbody> -->
-<!-- 				<tr th:each = "al:${alfombras}"> -->
-<!-- 					<th scope="row" th:text = "${al.mueble.id_Mueble}"></th> -->
-<!-- 					<th scope="row" th:text = "${al.mueble.nombre_Mueble}"></th> -->
-<!-- 					<th scope="row" th:text = "${al.color.nombre_Color}"></th> -->
-<!-- 				</tr> -->
-<!-- 			</tbody> -->
-<!-- 		</table> -->
-		
-<!-- 		<form class="CrearBaul"> -->
-<!-- 			<div class="card-header bg-dark"> -->
-<!-- 				<h1>CREAR MUEBLE: BAUL</h1> -->
-<!-- 			</div> -->
-<!-- 			<div class="card-body bg-gray"> -->
-<!-- 				<p> -->
-<!-- 					Nombre Baul: <input type="text"> Color: <select> -->
-<!-- 						<option th:each="col:${Colores}" th:value="${col.nombre_Color}" -->
-<!-- 							th:text="${col.nombre_Color}" /> -->
-<!-- 					</select> -->
-<!-- 				</p> -->
-<!-- 				<div class="card-footer bg-dark"> -->
-<!-- 					<input type="submit" class="btn btn-primary btn-sm" value="Guardar"> -->
-<!-- 					<input type="reset" class="btn btn-primary btn-sm" value="Reset" /> -->
-<!-- 				</div> -->
-<!-- 			</div> -->
-<!-- 		</form> -->
+		<!-- 		<table class="table CrearAlfombra"> -->
+		<!-- 			<thead> -->
+		<!-- 				<tr> -->
+		<!-- 					<th scope="col">ID Alfombra</th> -->
+		<!-- 					<th scope="col">Nombre Alfombra</th> -->
+		<!-- 					<th scope="col">Color Alfombra</th> -->
+
+		<!-- 				</tr> -->
+		<!-- 			</thead> -->
+		<!-- 			<tbody> -->
+		<!-- 				<tr th:each = "al:${alfombras}"> -->
+		<!-- 					<th scope="row" th:text = "${al.mueble.id_Mueble}"></th> -->
+		<!-- 					<th scope="row" th:text = "${al.mueble.nombre_Mueble}"></th> -->
+		<!-- 					<th scope="row" th:text = "${al.color.nombre_Color}"></th> -->
+		<!-- 				</tr> -->
+		<!-- 			</tbody> -->
+		<!-- 		</table> -->
+
+		<!-- 		<form class="CrearBaul"> -->
+		<!-- 			<div class="card-header bg-dark"> -->
+		<!-- 				<h1>CREAR MUEBLE: BAUL</h1> -->
+		<!-- 			</div> -->
+		<!-- 			<div class="card-body bg-gray"> -->
+		<!-- 				<p> -->
+		<!-- 					Nombre Baul: <input type="text"> Color: <select> -->
+		<!-- 						<option th:each="col:${Colores}" th:value="${col.nombre_Color}" -->
+		<!-- 							th:text="${col.nombre_Color}" /> -->
+		<!-- 					</select> -->
+		<!-- 				</p> -->
+		<!-- 				<div class="card-footer bg-dark"> -->
+		<!-- 					<input type="submit" class="btn btn-primary btn-sm" value="Guardar"> -->
+		<!-- 					<input type="reset" class="btn btn-primary btn-sm" value="Reset" /> -->
+		<!-- 				</div> -->
+		<!-- 			</div> -->
+		<!-- 		</form> -->
 
 		<script type="text/javascript">
 			$(".CrearBaul").hide();
@@ -205,19 +209,22 @@
 		</script>
 		<!-- -------------------------------------------------------CREAR CARPA------------------------------------- -->
 		<form class="CrearCarpa">
-			<div class="card-header bg-dark">
-				<h1>CREAR MUEBLE: CARPA</h1>
-			</div>
-			<div class="card-body bg-gray">
-				<p>
-					Nombre Carpa: <input type="text"> Color: <select>
-						<option th:each="col:${Colores}" th:value="${col.nombre_Color}"
-							th:text="${col.nombre_Color}" />
-					</select>
-				</p>
-				<div class="card-footer bg-dark">
-					<input type="submit" class="btn btn-primary btn-sm" value="Guardar">
-					<input type="reset" class="btn btn-primary btn-sm" value="Reset" />
+			<div class="card bg-light">
+				<div class="card-header bg-dark">
+					<h1>CREAR MUEBLE: CARPA</h1>
+				</div>
+				<div class="card-body bg-gray">
+					<p>
+						Nombre Carpa: <input type="text"> Color: <select>
+							<option th:each="col:${Colores}" th:value="${col.nombre_Color}"
+								th:text="${col.nombre_Color}" />
+						</select>
+					</p>
+					<div class="card-footer bg-dark">
+						<input type="submit" class="btn btn-primary btn-sm"
+							value="Guardar"> <input type="reset"
+							class="btn btn-primary btn-sm" value="Reset" />
+					</div>
 				</div>
 			</div>
 		</form>
@@ -237,19 +244,22 @@
 
 		<!-- -------------------------------------------------------CREAR ESCALERA------------------------------------- -->
 		<form class="CrearEscalera">
-			<div class="card-header bg-dark">
-				<h1>CREAR MUEBLE: ESCALERA</h1>
-			</div>
-			<div class="card-body bg-gray">
-				<p>
-					Nombre Escalera: <input type="text"> Color: <select>
-						<option th:each="col:${Colores}" th:value="${col.nombre_Color}"
-							th:text="${col.nombre_Color}" />
-					</select>
-				</p>
-				<div class="card-footer bg-dark">
-					<input type="submit" class="btn btn-primary btn-sm" value="Guardar">
-					<input type="reset" class="btn btn-primary btn-sm" value="Reset" />
+			<div class="card bg-light">
+				<div class="card-header bg-dark">
+					<h1>CREAR MUEBLE: ESCALERA</h1>
+				</div>
+				<div class="card-body bg-gray">
+					<p>
+						Nombre Escalera: <input type="text"> Color: <select>
+							<option th:each="col:${Colores}" th:value="${col.nombre_Color}"
+								th:text="${col.nombre_Color}" />
+						</select>
+					</p>
+					<div class="card-footer bg-dark">
+						<input type="submit" class="btn btn-primary btn-sm"
+							value="Guardar"> <input type="reset"
+							class="btn btn-primary btn-sm" value="Reset" />
+					</div>
 				</div>
 			</div>
 		</form>
@@ -269,19 +279,22 @@
 		</script>
 		<!-- -------------------------------------------------------CREAR ESTANTE------------------------------------- -->
 		<form class="CrearEstante">
-			<div class="card-header bg-dark">
-				<h1>CREAR MUEBLE: ESTANTE</h1>
-			</div>
-			<div class="card-body bg-gray">
-				<p>
-					Nombre Estante: <input type="text"> Color: <select>
-						<option th:each="col:${Colores}" th:value="${col.nombre_Color}"
-							th:text="${col.nombre_Color}" />
-					</select>
-				</p>
-				<div class="card-footer bg-dark">
-					<input type="submit" class="btn btn-primary btn-sm" value="Guardar">
-					<input type="reset" class="btn btn-primary btn-sm" value="Reset" />
+			<div class="card bg-light">
+				<div class="card-header bg-dark">
+					<h1>CREAR MUEBLE: ESTANTE</h1>
+				</div>
+				<div class="card-body bg-gray">
+					<p>
+						Nombre Estante: <input type="text"> Color: <select>
+							<option th:each="col:${Colores}" th:value="${col.nombre_Color}"
+								th:text="${col.nombre_Color}" />
+						</select>
+					</p>
+					<div class="card-footer bg-dark">
+						<input type="submit" class="btn btn-primary btn-sm"
+							value="Guardar"> <input type="reset"
+							class="btn btn-primary btn-sm" value="Reset" />
+					</div>
 				</div>
 			</div>
 		</form>
@@ -301,19 +314,22 @@
 
 		<!-- -------------------------------------------------------CREAR MESA------------------------------------- -->
 		<form class="CrearMesa">
-			<div class="card-header bg-dark">
-				<h1>CREAR MUEBLE: MESA</h1>
-			</div>
-			<div class="card-body bg-gray">
-				<p>
-					Nombre Mesa: <input type="text"> Color: <select>
-						<option th:each="col:${Colores}" th:value="${col.nombre_Color}"
-							th:text="${col.nombre_Color}" />
-					</select>
-				</p>
-				<div class="card-footer bg-dark">
-					<input type="submit" class="btn btn-primary btn-sm" value="Guardar">
-					<input type="reset" class="btn btn-primary btn-sm" value="Reset" />
+			<div class="card bg-light">
+				<div class="card-header bg-dark">
+					<h1>CREAR MUEBLE: MESA</h1>
+				</div>
+				<div class="card-body bg-gray">
+					<p>
+						Nombre Mesa: <input type="text"> Color: <select>
+							<option th:each="col:${Colores}" th:value="${col.nombre_Color}"
+								th:text="${col.nombre_Color}" />
+						</select>
+					</p>
+					<div class="card-footer bg-dark">
+						<input type="submit" class="btn btn-primary btn-sm"
+							value="Guardar"> <input type="reset"
+							class="btn btn-primary btn-sm" value="Reset" />
+					</div>
 				</div>
 			</div>
 		</form>
@@ -332,19 +348,22 @@
 
 		<!-- -------------------------------------------------------CREAR SILLA------------------------------------- -->
 		<form class="CrearSilla">
-			<div class="card-header bg-dark">
-				<h1>CREAR MUEBLE: SILLA</h1>
-			</div>
-			<div class="card-body bg-gray">
-				<p>
-					Nombre Silla: <input type="text"> Color: <select>
-						<option th:each="col:${Colores}" th:value="${col.nombre_Color}"
-							th:text="${col.nombre_Color}" />
-					</select>
-				</p>
-				<div class="card-footer bg-dark">
-					<input type="submit" class="btn btn-primary btn-sm" value="Guardar">
-					<input type="reset" class="btn btn-primary btn-sm" value="Reset" />
+			<div class="card bg-light">
+				<div class="card-header bg-dark">
+					<h1>CREAR MUEBLE: SILLA</h1>
+				</div>
+				<div class="card-body bg-gray">
+					<p>
+						Nombre Silla: <input type="text"> Color: <select>
+							<option th:each="col:${Colores}" th:value="${col.nombre_Color}"
+								th:text="${col.nombre_Color}" />
+						</select>
+					</p>
+					<div class="card-footer bg-dark">
+						<input type="submit" class="btn btn-primary btn-sm"
+							value="Guardar"> <input type="reset"
+							class="btn btn-primary btn-sm" value="Reset" />
+					</div>
 				</div>
 			</div>
 		</form>

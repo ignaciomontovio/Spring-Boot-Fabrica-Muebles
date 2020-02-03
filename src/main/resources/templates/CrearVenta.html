@@ -90,26 +90,42 @@
 
 		<form action="#" th:action="@{/saveVentaMueble}"
 			th:object="${ventaMueble}" method="post">
-			<div class="card-header bg-dark">
-				<h1>ASIGNAR MUEBLE A VENTA</h1>
-			</div>
-			<div class="card-body bg-gray">
-				<p>
-					Id Venta: <select th:field="${ventaMueble.venta.id_Venta}">
-						<option th:each="ven:${ventas}" th:value="${ven.id_Venta}"
-							th:text="${ven.id_Venta}" />
-					</select> Cantidad: <input type="number" th:field="${ventaMueble.cantidad}">
-					Mueble: <select th:field="${ventaMueble.mueble.id_Mueble}">
-						<option th:each="al:${alfombras}"
-							th:value="${al.mueble.id_Mueble}"
-							th:text="${al.mueble.nombre_Mueble}+'-'+${al.color.nombre_Color}" />
-						<option th:each="ba:${baules}" th:value="${ba.mueble.id_Mueble}"
-							th:text="${ba.mueble.nombre_Mueble}+'-'+${ba.color.nombre_Color}" />
-					</select>
-				</p>
-				<div class="card-footer bg-dark">
-					<input type="submit" class="btn btn-primary btn-sm" value="Guardar">
-					<input type="reset" class="btn btn-primary btn-sm" value="Reset" />
+			<div class="card bg-light">
+				<div class="card-header bg-dark">
+					<h1>ASIGNAR MUEBLE A VENTA</h1>
+
+				</div>
+				<div class="card-body bg-gray">
+					<div class="row">
+						<aside class=" col-sm-4 col-md-4 col-lg-4 col-xl-4 ">
+							<h3>Id Venta:</h3>
+							<select th:field="${ventaMueble.venta.id_Venta}">
+								<option th:each="ven:${ventas}" th:value="${ven.id_Venta}"
+									th:text="${ven.id_Venta}" />
+
+							</select>
+						</aside>
+						<aside class=" col-sm-4 col-md-4 col-lg-4 col-xl-4 ">
+							<h3>Cantidad:</h3>
+							<input type="number" th:field="${ventaMueble.cantidad}">
+						</aside>
+						<aside class=" col-sm-4 col-md-4 col-lg-4 col-xl-4 ">
+							<h3>Mueble:</h3>
+							<select th:field="${ventaMueble.mueble.id_Mueble}">
+								<option th:each="al:${alfombras}"
+									th:value="${al.mueble.id_Mueble}"
+									th:text="${al.mueble.nombre_Mueble}+'-'+${al.color.nombre_Color}" />
+								<option th:each="ba:${baules}" th:value="${ba.mueble.id_Mueble}"
+									th:text="${ba.mueble.nombre_Mueble}+'-'+${ba.color.nombre_Color}" />
+							</select>
+						</aside>
+					</div>
+					<br>
+					<div class="card-footer bg-dark">
+						<input type="submit" class="btn btn-primary btn-sm"
+							value="Guardar"> <input type="reset"
+							class="btn btn-primary btn-sm" value="Reset" />
+					</div>
 				</div>
 			</div>
 		</form>
@@ -142,24 +158,23 @@
 					<th scope="row" th:text="${ven.ganancia}"></th>
 					<th scope="row" th:text="${ven.metodo_Envio}"></th>
 					<th scope="row" th:text="${ven.cliente.nombre_Cliente}"></th>
-					<th><th:block scope="row" th:each="venMue,iter:${ven.ventaMuebles}">
-								<label th:text="${venMue.mueble.nombre_Mueble} +'-'+${venMue.cantidad}+'ud.'">,</label>
-								<a th:href="@{/deleteMuebleVenta/} + ${venMue.mueble.id_Mueble} +'/'+${venMue.venta.id_Venta}"
-							class="btn btn-primary btn-sm">Eliminar Mueble</a>
-<!-- 								<form action="#" th:action="@{/deleteMuebleVenta}" -->
-<!-- 									th:object="${venMueElim}" method="post">. -->
-<!-- 										<input type = "hidden" th:value="${venMue.cantidad}" th:field="${venMueElim.cantidad}"> -->
-<!-- 										<input type="submit" class="btn btn-primary btn-sm" value="Eliminar"> -->
-<!-- 									</form> -->
-								<th:block th:if="${!iter.last}">,</th:block>
-							</th:block></th>
+					<th><th:block scope="row"
+							th:each="venMue,iter:${ven.ventaMuebles}">
+							<label
+								th:text="${venMue.mueble.nombre_Mueble} +'-'+${venMue.cantidad}+'ud.'">,</label>
+							<a
+								th:href="@{/deleteMuebleVenta/} + ${venMue.mueble.id_Mueble} +'/'+${venMue.venta.id_Venta}"
+								class="btn btn-primary btn-sm">Eliminar Mueble</a>
+							<!-- 								<form action="#" th:action="@{/deleteMuebleVenta}" -->
+							<!-- 									th:object="${venMueElim}" method="post">. -->
+							<!-- 										<input type = "hidden" th:value="${venMue.cantidad}" th:field="${venMueElim.cantidad}"> -->
+							<!-- 										<input type="submit" class="btn btn-primary btn-sm" value="Eliminar"> -->
+							<!-- 									</form> -->
+							<th:block th:if="${!iter.last}">,</th:block>
+						</th:block></th>
 				</tr>
 			</tbody>
 		</table>
-
-
-
-
 	</div>
 </body>
 </html>
