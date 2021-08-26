@@ -25,8 +25,9 @@
 				class="col-sm-2 col-md-2 col-lg-2 col-xl-2 btn btn-primary">Pedidos
 				a Fabricar</a>
 		</div>
+		<!-- 		 --------------------------------------------------------------------------------------------------------------------------------------- -->
 		<table class="table">
-			<thead>
+			<thead class="thead-dark">
 				<tr>
 					<th scope="col">Finalizar Venta</th>
 					<th scope="col">ID Venta</th>
@@ -42,10 +43,9 @@
 			</thead>
 			<tbody>
 				<tr th:each="ven:${ventas}">
-					<th scope="row" >
-					<a th:href="@{/finalizarVenta/} + ${ven.id_Venta}"
-										class="btn btn-primary btn-sm">Finalizar</a>
-										</th>
+					<th scope="row"><a
+						th:href="@{/finalizarVenta/} + ${ven.id_Venta}"
+						class="btn btn-primary btn-sm">Finalizar</a></th>
 					<th scope="row" th:text="${ven.id_Venta}"></th>
 					<th scope="row" th:text="${ven.lugar_De_Entrega}"></th>
 					<th scope="row"
@@ -57,6 +57,7 @@
 					<th scope="row" th:text="${ven.metodo_Envio}"></th>
 					<th scope="row" th:text="${ven.cliente.nombre_Cliente}"></th>
 					<th>
+						<!-- 		 --------------------------------------------------------------------------------------------------------------------------------------- -->
 						<table class="table">
 							<thead>
 								<tr>
@@ -70,15 +71,20 @@
 							</thead>
 							<tbody>
 								<tr th:each="venMue:${ven.ventaMuebles}">
-									<th scope="row"
-										th:text="'Id:'+${venMue.mueble.id_Mueble}+'-'+${venMue.mueble.nombre_Mueble}+'-'+${venMue.cantidad}+'ud.'">
-									</th>
-									<th>
-									<th:block scope="row" th:each="codAs:${venMue.codigosDeBarras}">
-										<label th:text = "${codAs.numeroCodigoDeBarras}"></label>
-										<a th:href="@{/deleteMuebleCodigoDeBarras/} + ${codAs.numeroCodigoDeBarras}"
-										class="btn btn-primary btn-sm">Eliminar</a>	
-									</th:block></th>
+									<th scope="row">
+											<label
+												th:text="'Id:'+${venMue.mueble.id_Mueble}+'-'+${venMue.mueble.nombre_Mueble}"></label>
+											<label th:if="${venMue.mueble.alfombra}" th:text="'Color:'+${venMue.mueble.alfombra.color.nombre_Color}"></label>
+											<label th:if="${venMue.mueble.baul}" th:text="'Color:'+${venMue.mueble.baul.color.nombre_Color}"></label>
+											<label th:text="'-'+${venMue.cantidad}+'ud.'"></label>
+										</th>
+									<th><th:block scope="row"
+											th:each="codAs:${venMue.codigosDeBarras}">
+											<label th:text="${codAs.numeroCodigoDeBarras}"></label>
+											<a
+												th:href="@{/deleteMuebleCodigoDeBarras/} + ${codAs.numeroCodigoDeBarras}"
+												class="btn btn-primary btn-sm">Eliminar</a>
+										</th:block></th>
 									<th>
 										<form action="#" th:action="@{/asignarCodigoAVenta}"
 											th:object="${ventaMuebleYCodigoDeBarras}" method="post">
@@ -105,7 +111,7 @@
 									</th>
 								</tr>
 							</tbody>
-						</table>
+						</table> <!-- 		 --------------------------------------------------------------------------------------------------------------------------------------- -->
 					</th>
 			</tbody>
 		</table>

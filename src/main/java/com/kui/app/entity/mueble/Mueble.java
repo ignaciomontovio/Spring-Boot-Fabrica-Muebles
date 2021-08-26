@@ -5,6 +5,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+
+import com.kui.app.entity.mueble.tipoMueble.Alfombra;
+import com.kui.app.entity.mueble.tipoMueble.Baul;
 
 @Entity
 public class Mueble {
@@ -17,6 +23,22 @@ public class Mueble {
 	@Column(name = "nombre_mueble", length = 50)
 	private String nombre_Mueble;
 
+	@OneToOne(mappedBy = "mueble")
+	private Alfombra alfombra;
+	
+	@OneToOne(mappedBy = "mueble")
+	private Baul baul;
+	
+	
+	
+	public Baul getBaul() {
+		return baul;
+	}
+
+	public void setBaul(Baul baul) {
+		this.baul = baul;
+	}
+
 	public String getNombre_Mueble() {
 		return nombre_Mueble;
 	}
@@ -28,6 +50,14 @@ public class Mueble {
 	@Override
 	public String toString() {
 		return "Mueble [id_Mueble=" + id_Mueble + ", nombre_Mueble=" + nombre_Mueble + "]";
+	}
+
+	public Alfombra getAlfombra() {
+		return alfombra;
+	}
+
+	public void setAlfombra(Alfombra alfombra) {
+		this.alfombra = alfombra;
 	}
 
 	public Mueble() {
